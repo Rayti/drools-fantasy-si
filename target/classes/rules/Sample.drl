@@ -1,0 +1,606 @@
+package com.sample
+ 
+import com.sample.Presenter;
+ 
+ declare FantasyData
+ 	questionContent : String
+ 	answer : String
+ end
+ 
+
+rule "q1"
+	when
+	then
+		String q = "Are you going to be upset when you don't find Harry Potter?";
+		String[] options = {"Yes. Give me more precocious lads at school of magic, please.",
+			 "No. I know where to find him if I need him."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a1"
+	when  
+		FantasyData(questionContent.equals("Are you going to be upset when you don't find Harry Potter?")
+			&& answer.equals("Yes. Give me more precocious lads at school of magic, please."))
+	then
+		Presenter.giveAnswer("\"The Kingkiller Chronicles\" by Patrick Rothfuss.");
+end
+
+rule "q2"
+	when
+		FantasyData(questionContent.equals("Are you going to be upset when you don't find Harry Potter?")
+			&& answer.equals("No. I know where to find him if I need him."))
+	then
+		String q = "Are you new to the fantasy genre?";
+		String [] options = {"Yes. I am as yet unfamiliar with your tropes. Do your worst.",
+			 "Maybe. Does the Wizard of Oz count?",
+			  "No. I'm what you call, experienced."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a2"
+	when
+		FantasyData(questionContent.equals("Are you new to the fantasy genre?")
+				&& answer.equals("Yes. I am as yet unfamiliar with your tropes. Do your worst."))
+	then
+		String q = "\"The Lord of the Rings\" by J.R.R. Tolkien ?";
+		String [] options = {"\"The Lord of the Rings\" by J.R.R. Tolkien.", "No. I'm not that new."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a2.1"
+	when
+		FantasyData(questionContent.equals("\"The Lord of the Rings\" by J.R.R. Tolkien ?")
+				&& answer.equals("\"The Lord of the Rings\" by J.R.R. Tolkien."))
+	then
+		Presenter.giveAnswer("\"The Lord of the Rings\" by J.R.R. Tolkien.");
+end
+
+rule "a2.2"
+	when
+		FantasyData(questionContent.equals("\"The Lord of the Rings\" by J.R.R. Tolkien ?")
+				&& answer.equals("No. I'm not that new."))
+	then
+		Presenter.giveAnswer("\"The Silmarillion\" by J.R.R. Tolkien.");
+end
+
+rule "a3"
+	when
+		FantasyData(questionContent.equals("Are you new to the fantasy genre?")
+				&& answer.equals("Maybe. Does the Wizard of Oz count?"))
+	then
+		String q = "";
+		Presenter.giveAnswer("\"Wicked\" by Gregory maguire.");
+end
+
+rule "q3"
+	when
+		FantasyData(questionContent.equals("Are you new to the fantasy genre?")
+				&& answer.equals("No. I'm what you call, experienced."))
+	then
+		String q = "Like the Arthurian legend?";
+		String [] options = {"Yes. I own The Sword and the Stone on DVD and VHS.",
+			 "No."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "q4"
+	when
+		FantasyData(questionContent.equals("Like the Arthurian legend?")
+				&& answer.equals("Yes. I own The Sword and the Stone on DVD and VHS."))
+	then
+		String q = "Which character do you like best?";
+		String [] options = {"Morgan Le Faye.", "Merlin.", "Arthur."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a4"
+	when
+		FantasyData(questionContent.equals("Which character do you like best?")
+				&& answer.equals("Arthur."))
+	then
+		Presenter.giveAnswer("\"The Once and Future King\" by T.H. White");
+end
+
+rule "a5"
+	when
+		FantasyData(questionContent.equals("Which character do you like best?")
+				&& answer.equals("Merlin."))
+	then
+		Presenter.giveAnswer("\"The Crystal Cave\" by Mary Steward");
+end
+
+rule "a6"
+	when
+		FantasyData(questionContent.equals("Which character do you like best?")
+				&& answer.equals("Morgan Le Faye."))
+	then
+		Presenter.giveAnswer("\"The Mists of Avalon\" by Marion Zimmer Bradley.");
+end
+
+rule "q5"
+	when
+		FantasyData(questionContent.equals("Like the Arthurian legend?")
+				&& answer.equals("No."))
+	then
+		String q = "Looking for modern-day settings?";
+		String [] options = {"Yes. I'm a city-person.", 
+			"Maybe. I'm partial to small towns.", 
+			"No. Let's find another world, this one's depressing."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "q6"
+	when
+		FantasyData(questionContent.equals("Looking for modern-day settings?")
+				&& answer.equals("Yes. I'm a city-person."))
+	then
+		String q = "Gods or people under the streets?";
+		String [] options = {"Modern Mythology.", 
+			"A world beneath the city."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a7"
+	when
+		FantasyData(questionContent.equals("Gods or people under the streets?")
+				&& answer.equals("A world beneath the city."))
+	then
+			Presenter.giveAnswer("\"Neverwhere\" by Neil Gaiman.");
+end
+
+rule "a8"
+	when
+		FantasyData(questionContent.equals("Gods or people under the streets?")
+				&& answer.equals("Modern Mythology."))
+	then
+		Presenter.giveAnswer("\"American Gods\" by Neil Gaiman.");
+end
+
+rule "a9"
+	when
+		FantasyData(questionContent.equals("Looking for modern-day settings?")
+				&& answer.equals("Maybe. I'm partial to small towns."))
+	then
+		Presenter.giveAnswer("\"Something Wicked This Way Comes\" by Ray Bradbury.");
+end
+
+rule "q7"
+	when
+		FantasyData(questionContent.equals("Looking for modern-day settings?")
+				&& answer.equals("No. Let's find another world, this one's depressing."))
+	then
+		String q = "Fan of westerns?";
+		String [] options = {"Yes. I'm prone to don chaps and walk the streets at high noon.",
+			 "No. Too dusty. And I'm not much of a card player."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a10"
+	when
+		FantasyData(questionContent.equals("Fan of westerns?")
+				&& answer.equals("Yes. I'm prone to don chaps and walk the streets at high noon."))
+	then
+		Presenter.giveAnswer("\"The Dark Tower\" by Stephen King.");
+end
+
+rule "q8"
+	when
+		FantasyData(questionContent.equals("Fan of westerns?")
+				&& answer.equals("No. Too dusty. And I'm not much of a card player."))
+	then
+		String q = "Animals more your thing?";
+		String [] options = {"Yes. I donate to the WWF. Not the wrestling one.",
+			 "No. I have allergies."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "q9"
+	when
+		FantasyData(questionContent.equals("Animals more your thing?")
+				&& answer.equals("Yes. I donate to the WWF. Not the wrestling one."))
+	then
+		String q = "What's your ideal pet?";
+		String [] options = {"Unicorn.",
+			 "Bunny.",
+			 "Dragon."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a11"
+	when
+		FantasyData(questionContent.equals("What's your ideal pet?")
+				&& answer.equals("Unicorn."))
+	then
+		Presenter.giveAnswer("\"The Last Unicorn\" by Peter S. Beagle.");
+end
+
+rule "a12"
+	when
+		FantasyData(questionContent.equals("What's your ideal pet?")
+				&& answer.equals("Bunny."))
+	then
+		Presenter.giveAnswer("\"Watership Down\" by Richard Adams.");
+end
+
+rule "a13"
+	when
+		FantasyData(questionContent.equals("What's your ideal pet?")
+				&& answer.equals("Dragon."))
+	then
+		Presenter.giveAnswer("\"Dragonflight\" by Anne McCaffrey.");
+end
+
+rule "q10"
+	when
+		FantasyData(questionContent.equals("Animals more your thing?")
+				&& answer.equals("No. I have allergies."))
+	then
+		String q = "How about some alternate history?";
+		String [] options = {"Yes. I'm a revisionist myself.",
+			 "No. I never paid any attention in history class."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "q11"
+	when
+		FantasyData(questionContent.equals("How about some alternate history?")
+				&& answer.equals("Yes. I'm a revisionist myself."))
+	then
+		String q = "Romance or warring magicians?";
+		String [] options = {"Romance.", "Magicians."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a14"
+	when
+		FantasyData(questionContent.equals("Romance or warring magicians?")
+				&& answer.equals("Romance."))
+	then
+		Presenter.giveAnswer("\"Kushiel's Legacy Series\" by Jacqueline Carey.");
+end
+
+rule "a15"
+	when
+		FantasyData(questionContent.equals("Romance or warring magicians?")
+				&& answer.equals("Magicians."))
+	then
+		Presenter.giveAnswer("\"Jonathan Strange & Mr. Norrell\" by Susanna Clarke.");
+end
+
+rule "q12"
+	when
+		FantasyData(questionContent.equals("How about some alternate history?")
+				&& answer.equals("No. I never paid any attention in history class."))
+	then
+		String q = "Ready to dive into a series?";
+		String [] options = {"Yes. The other two options ended with some strange choices.",
+			 "Maybe. How about an episodic series?",
+			 "No. let's keep this casual."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "q13"
+	when
+		FantasyData(questionContent.equals("Ready to dive into a series?")
+				&& answer.equals("No. let's keep this casual."))
+	then
+		String q = "With pirates or without?";
+		String [] options = {"Pirates Please.", "No pirates here. No siree, Bob. No pirates at all."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a16"
+	when
+		FantasyData(questionContent.equals("With pirates or without?")
+				&& answer.equals("Pirates Please."))
+	then
+		Presenter.giveAnswer("\"The Princess Bride\" by William Goldman.");
+end
+
+rule "a17"
+	when
+		FantasyData(questionContent.equals("With pirates or without?")
+				&& answer.equals("No pirates here. No siree, Bob. No pirates at all."))
+	then
+		Presenter.giveAnswer("\"Stardust\" by Neil Gaiman.");
+end
+
+rule "q14"
+	when
+		FantasyData(questionContent.equals("Ready to dive into a series?")
+				&& answer.equals("Maybe. How about an episodic series?"))
+	then
+		String q = "What's your pleasure?";
+		String [] options = {"Bureaucratic Satire.",
+		 "Religious Satire.",
+		 "Fun with puns."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a18"
+	when
+		FantasyData(questionContent.equals("What's your pleasure?")
+				&& answer.equals("Bureaucratic Satire."))
+	then
+		Presenter.giveAnswer("\"Going Postal\" by Terry Pratchett.");
+end
+
+rule "a19"
+	when
+		FantasyData(questionContent.equals("What's your pleasure?")
+				&& answer.equals("Religious Satire."))
+	then
+		Presenter.giveAnswer("\"Small Gods\" by Terry Pratchett.");
+end
+
+rule "a20"
+	when
+		FantasyData(questionContent.equals("What's your pleasure?")
+				&& answer.equals("Fun with puns."))
+	then
+		Presenter.giveAnswer("\"Xanth Series\" by Piers Anthony.");
+end
+
+rule "q15"
+	when
+		FantasyData(questionContent.equals("Ready to dive into a series?")
+				&& answer.equals("Yes. The other two options ended with some strange choices."))
+	then
+		String q = "Does the series have to be finished?";
+		String [] options = {"Yes.",
+			 "No. I like to be held in suspense. Preferably for years at a time."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "q16"
+	when
+		FantasyData(questionContent.equals("Does the series have to be finished?")
+				&& answer.equals("No. I like to be held in suspense. Preferably for years at a time."))
+	then
+		String q = "Take the high road or the low road?";
+		String [] options = {"High fantasy.", "Low fantasy."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a21"
+	when
+		FantasyData(questionContent.equals("Take the high road or the low road?")
+				&& answer.equals("High fantasy."))
+	then
+		Presenter.giveAnswer("\"The Way of Kings\" by Brandon Sanderson.");
+end
+
+rule "a22"
+	when
+		FantasyData(questionContent.equals("Take the high road or the low road?")
+				&& answer.equals("Low fantasy."))
+	then
+		Presenter.giveAnswer("\"A Song of Ice and Fire\" by George R.R. Martin.");
+end
+
+rule "q17"
+	when
+		FantasyData(questionContent.equals("Does the series have to be finished?")
+				&& answer.equals("Yes."))
+	then
+		String q = "Do the words Sword and Sorcery have a positive connotation for you?";
+		String [] options = {"Yes. Wizards and Barbarians? What's not to like?", "No."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "q18"
+	when
+		FantasyData(questionContent.equals("Do the words Sword and Sorcery have a positive connotation for you?")
+				&& answer.equals("Yes. Wizards and Barbarians? What's not to like?"))
+	then
+		String q = "Roleplayer?";
+		String [] options = {"Yes.", "No."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a23"
+	when
+		FantasyData(questionContent.equals("Roleplayer?")
+				&& answer.equals("Yes."))
+	then
+		Presenter.giveAnswer("\"The Legend of Drizzt\" by R.A. Salvatore.");
+end
+
+rule "q19"
+	when
+		FantasyData(questionContent.equals("Roleplayer?")
+				&& answer.equals("No."))
+	then
+		String q = "More wizards or barbarians?";
+		String [] options = {"Wizards.", "Barbarians."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a24"
+	when
+		FantasyData(questionContent.equals("More wizards or barbarians?")
+				&& answer.equals("Wizards."))
+	then
+		Presenter.giveAnswer("\"The Elric Saga\" by Michael Moorcock.");
+end
+
+rule "a25"
+	when
+		FantasyData(questionContent.equals("More wizards or barbarians?")
+				&& answer.equals("Barbarians."))
+	then
+		Presenter.giveAnswer("\"Chronicles of Conan the Barbarian\" by Robert E. Howard.");
+end
+
+rule "q20"
+	when
+		FantasyData(questionContent.equals("Do the words Sword and Sorcery have a positive connotation for you?")
+				&& answer.equals("No."))
+	then
+		String q = "Looking for an old-fashioned Trilogy?";
+		String [] options = {"Yes. Three is my lucky number.", 
+			"Maybe. How about a trilogy of trilogies?",
+			"No. In for a penny, in for a pound I always say."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a26"
+	when
+		FantasyData(questionContent.equals("Looking for an old-fashioned Trilogy?")
+				&& answer.equals("Maybe. How about a trilogy of trilogies?"))
+	then
+		Presenter.giveAnswer("\"The Chronicles Of Thomas Covenant, The Unbeliever\" by Stephen R. Donaldson.");
+end
+
+rule "q21"
+	when
+		FantasyData(questionContent.equals("Looking for an old-fashioned Trilogy?")
+				&& answer.equals("Yes. Three is my lucky number."))
+	then
+		String q = "What shall we read about?";
+		String [] options = {"Thieves.", "MacGuffins.", "Assassins.", "Magicians."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a27"
+	when
+		FantasyData(questionContent.equals("What shall we read about?")
+				&& answer.equals("Thieves."))
+	then
+		Presenter.giveAnswer("\"The Mistborn Trilogy\" by Brandon Sanderson.");
+end
+
+rule "a28"
+	when
+		FantasyData(questionContent.equals("What shall we read about?")
+				&& answer.equals("MacGuffins."))
+	then
+		Presenter.giveAnswer("\"The Sword of Shannara Trilogy\" by Terry Brooks.");
+end
+
+rule "a29"
+	when
+		FantasyData(questionContent.equals("What shall we read about?")
+				&& answer.equals("Assassins."))
+	then
+		Presenter.giveAnswer("\"The Farseer Trilogy\" by Robin Hobb.");
+end
+
+rule "a30"
+	when
+		FantasyData(questionContent.equals("What shall we read about?")
+				&& answer.equals("Magicians."))
+	then
+		Presenter.giveAnswer("\"The Riftwar Saga\" by Raymond E. Feist.");
+end
+
+rule "q22"
+	when
+		FantasyData(questionContent.equals("Looking for an old-fashioned Trilogy?")
+				&& answer.equals("No. In for a penny, in for a pound I always say."))
+	then
+		String q = "So, five or six books enough for you?";
+		String [] options = {"Yes. That should keep me busy.",
+			 "No. I shall require at least ten."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "q23"
+	when
+		FantasyData(questionContent.equals("So, five or six books enough for you?")
+				&& answer.equals("Yes. That should keep me busy."))
+	then
+		String q = "Enjoy stories about orphaned farm boys?";
+		String [] options = {"No."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "q24"
+	when
+		FantasyData(questionContent.equals("Enjoy stories about orphaned farm boys?")
+				&& answer.equals("No."))
+	then
+		String q = "Tough.";
+		String [] options = {"\"The Codex Alera\" by Jim Butcher.",
+			 "\"The Belgariad\" by David Eddings."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a31"
+	when
+		FantasyData(questionContent.equals("Tough.")
+				&& answer.equals("\"The Codex Alera\" by Jim Butcher."))
+	then
+		Presenter.giveAnswer("\"The Codex Alera\" by Jim Butcher.");
+end
+
+rule "a32"
+	when
+		FantasyData(questionContent.equals("Tough.")
+				&& answer.equals("\"The Belgariad\" by David Eddings."))
+	then
+		Presenter.giveAnswer("\"The Belgariad\" by David Eddings.");
+end
+
+rule "q25"
+	when
+		FantasyData(questionContent.equals("So, five or six books enough for you?")
+				&& answer.equals("No. I shall require at least ten."))
+	then
+		String q = "Enjoy quests to prevent great evil from conquering the world?";
+		String [] options = {"Yes. Good vs. Evil on an epic scale, please.", 
+			"No. I need a little more complexity."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "q26"
+	when
+		FantasyData(questionContent.equals("Enjoy quests to prevent great evil from conquering the world?")
+				&& answer.equals("Yes. Good vs. Evil on an epic scale, please."))
+	then
+		String q = "Who will save us?";
+		String [] options = {"The Seeker of Truth.", "The One Power."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a33"
+	when
+		FantasyData(questionContent.equals("Who will save us?")
+				&& answer.equals("The Seeker of Truth."))
+	then
+		Presenter.giveAnswer("\"The Sword of Truth Series\" by Terry Goodkind.");
+end
+
+rule "a34"
+	when
+		FantasyData(questionContent.equals("Who will save us?")
+				&& answer.equals("The One Power."))
+	then
+		Presenter.giveAnswer("\"The Wheel of Time\" by Robert Jordan.");
+end
+
+rule "q27"
+	when
+		FantasyData(questionContent.equals("Enjoy quests to prevent great evil from conquering the world?")
+				&& answer.equals("No. I need a little more complexity."))
+	then
+		String q = "Choose wisely, this is the end.";
+		String [] options = {"Earth in the Shadows.", "Weaving Timeline."};
+		insert(new FantasyData(q, Presenter.askQuestion(q, options)));
+end
+
+rule "a35"
+	when
+		FantasyData(questionContent.equals("Choose wisely, this is the end.")
+				&& answer.equals("Earth in the Shadows."))
+	then
+		Presenter.giveAnswer("\"The Chronicles of Amber\" by Roger Zelazny.");
+end
+
+rule "a36"
+	when
+		FantasyData(questionContent.equals("Choose wisely, this is the end.")
+				&& answer.equals("Weaving Timeline."))
+	then
+		Presenter.giveAnswer("\"The Malazan Book of the Fallen Series\" by Steven Erikson.");
+end
